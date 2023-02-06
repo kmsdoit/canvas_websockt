@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div class="main">
+    <form>
+        <input id="userId"/><br/>
+        <input id="userPassword"/><br/>
+        <input id="userName"/><br/>
+        <button type="submit" id="sub">제출</button>
+    </form>
+</div>
+</body>
+<script>
+    const userId = document.getElementById("userId")
+    const userPassword = document.getElementById("userPassword")
+    const userName = document.getElementById("userName")
+    const subBtn = document.getElementById("sub")
+
+    subBtn.addEventListener("click" , (e) => {
+        e.preventDefault()
+        fetch('https://localhost:8081/register', {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify({
+                id : userId.value,
+                password : userPassword.value,
+                name : userName.value
+            })
+        }).then((res) => res.json()).then((resp) => {
+            if(resp.statusCode === 200) {
+                window.location.href = 'https://localhost:8081/home'
+            }else {
+                return null
+            }
+        })
+    })
+</script>
+</html>

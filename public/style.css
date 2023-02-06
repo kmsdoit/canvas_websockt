@@ -1,0 +1,146 @@
+.main {
+    height: 100vh;
+    display: flex;
+}
+.main__left {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.main__right {
+    flex: 0.2
+}
+#video-grid{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width : 100%;
+    height: 100%;
+    position: relative;
+}
+video {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    /* padding: 8px; */
+}
+.main__videos {
+    flex-grow: 1;
+    background-color: black;
+    display: flex;
+    width: 100%;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* padding: 40px; */
+    position: relative; /* 수정한 부분 */
+}
+.main__controls {
+    background-color: #1C1E20;
+}
+.main__right {
+    background-color: #242324;
+    border-left: 1px solid #3D3D42;
+}
+.main__controls {
+    color: #D2D2D2;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+.main__controls__block {
+    display: flex;
+}
+.main__controls__button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 10px;
+    min-width: 80px;
+    cursor: pointer;
+}
+.main__controls__button:hover {
+    background-color: #343434;
+    border-radius: 5px;
+}
+.main__controls__button i {
+    font-size: 24px;
+}
+.main__right {
+    display: flex;
+    flex-direction: column;
+}
+.main__header {
+    padding-top: 5px;
+    color: #F5F5F5;
+    text-align: center;
+}
+.main__chat_window {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+.messages{
+    color: white;
+    list-style: none;
+}
+.main__message_container {
+    padding: 22px 12px;
+    display: flex;
+}
+.main__message_container input {
+    flex-grow: 1;
+    background-color: transparent;
+    border: none;
+    color: #F5F5F5;
+}
+.leave_meeting {
+    color: #EB534B;
+}
+.unmute, .stop {
+    color: #CC3B33;
+}
+.my__canvas {
+    position: absolute;
+    z-index: 30;
+    display: block;
+    margin: 0 auto;
+    bottom: 0;
+    left: 0;
+}
+/* 내 화면 */
+.my__screen {
+    position: absolute;
+    z-index: 5;
+    display: block;
+    margin: 0 auto;
+    bottom: 0;
+    left: 0;
+    width: 400px;
+    height: 300px;
+    /* background: royalblue; */
+}
+/* 상대방 화면 */
+.partner__screen {
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 300px;
+    padding: 8px;
+}
+
+.partner__canvas {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.userid__partner__canvas {
+    z-index: 30;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
