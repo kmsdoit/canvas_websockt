@@ -45,12 +45,12 @@
         document.cookie = updatedCookie; // 새로 갱신
     }
     const myId = get_cookie('userid')
-    fetch(`https://localhost:8081/getRoomId?id=${myId}`).then((roomRes)=> roomRes.json()).then((Resp) => {
+    fetch(`https://211.219.71.59:8081/getRoomId?id=${myId}`).then((roomRes)=> roomRes.json()).then((Resp) => {
         console.log(Resp)
         if(Resp.data[0].roomid !== null && Resp.statusCode == 200 && Resp.data[0].roomid !== "") {
-            window.location.href = `https://localhost:8081/${Resp.data[0].roomid}`
+            window.location.href = `https://211.219.71.59:8081/${Resp.data[0].roomid}`
         }else{
-            fetch('https://localhost:8081/user').then((res) => res.json()).then((resp) => {
+            fetch('https://211.219.71.59:8081/user').then((res) => res.json()).then((resp) => {
                 if(resp.statusCode === 200) {
                     for(let i=0; i < resp.data.length;i++) {
                         if (resp.data[i].id !== myId){
@@ -65,7 +65,7 @@
                                         </tr>`
                             $("#userTable").append(html)
                             $(`#${resp.data[i].id}Btn`).click(() => {
-                                fetch('https://localhost:8081/join',{
+                                fetch('https://211.219.71.59:8081/join',{
                                     method : "POST",
                                     headers : {
                                         "Content-Type" : "application/json"
@@ -78,7 +78,7 @@
                                     console.log(resp)
                                     setCookie('partnerId', `${resp.data[i].id}`, {secure: true, 'max-age': 3600});
                                     if(roomResp.statusCode == 200){
-                                        window.location.href = `https://localhost:8081/${roomResp.roomId}`
+                                        window.location.href = `https://211.219.71.59:8081/${roomResp.roomId}`
                                     }
                                 })
                             })

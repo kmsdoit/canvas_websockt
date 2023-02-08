@@ -23,7 +23,7 @@
 
     subBtn.addEventListener("click" , (e) => {
         e.preventDefault()
-        fetch('https://localhost:8081/register', {
+        fetch('https://211.219.71.59:8081/register', {
             method : "POST",
             headers : {
                 "Content-Type" : "application/json"
@@ -35,7 +35,7 @@
             })
         }).then((res) => res.json()).then((resp) => {
             if(resp.statusCode === 200) {
-                window.location.href = 'https://localhost:8081/home'
+                window.location.href = 'https://211.219.71.59:8081/home'
             }else {
                 return null
             }

@@ -1,12 +1,18 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
 const fs = require('fs')
 const sslOptions = {
     key : fs.readFileSync('node-key.pem'),
     cert : fs.readFileSync('node-cert.pem')
 }
 const server = require('https').createServer(sslOptions,app)
-const io = require("socket.io")(server);
+const io = require("socket.io")(server,{
+    cors : {
+        origin : '*',
+        method: ['GET','POST']
+    }
+});
 const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(server, {
     debug: true,
@@ -15,13 +21,14 @@ const { v4: uuidV4 } = require("uuid");
 const {Client} = require("pg");
 const dbClient = new Client({
     user: "postgres",
-    host: "localhost",
+    host: "211.219.71.59",
     database: "postgres",
     password: "password",
     port: 5432
 });
 dbClient.connect();
 
+app.use(cors())
 app.use("/peerjs", peerServer);
 app.use(express.json())
 app.use(express.static("public"));
@@ -118,8 +125,11 @@ io.on("connection", (socket) => {
         socket.on("beginPath", ({ x, y, size,origin,target}) =>{
             io.to(roomId).emit("beganPath", { x, y,size,origin,target })
         });
-        socket.on("strokePath", ({ x, y, color,origin,target }) =>{
-            io.to(roomId).emit("strokedPath", { x, y, color,origin,target});
+        socket.on("strokePath", ({ x, y, color,origin,target,mouseX,mouseY }) =>{
+            io.to(roomId).emit("strokedPath", { x, y, color,origin,target,mouseX,mouseY});
+        });
+        socket.on("erasePath", ({ x, y,origin,target }) =>{
+            io.to(roomId).emit("erasedPath", { x, y,origin,target});
         });
         socket.on("disconnect", () => {
             io.to(roomId).emit("user-disconnected", userId);
